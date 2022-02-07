@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
 const Signup = (props) => {
 
@@ -15,10 +16,17 @@ const Signup = (props) => {
   const signup =() =>{
 
     if (id === ''|| pwd===''|| user_name===''){
+      window.alert('입력해주세요')
       return;
     }
 
+    if(!emailCheck(id)){
+      window.alert('이메일 형식이 맞지 않습니다')
+      return
+    }
+
     if(pwd!==pwd_check){
+      window.alert('패스워드가 다릅니다')
       return;
     }
     dispatch(userActions.signupFB(id, pwd, user_name));
