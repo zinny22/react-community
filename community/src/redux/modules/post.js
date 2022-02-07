@@ -31,9 +31,44 @@ const getPostFB =()=>{
         const postDB = firestore.collection("post");
 
         postDB.get().then((docs)=>{
+            let post_list =[];    
+
             docs.forEach((doc)=>{
-                console.log(doc.id, doc.data())
+
+                let _post = doc.data();
+                
+                let post = Object.keys(_post).reduce((acc,cur)=>{
+
+                    if(cur.indexOf("user_")!==-1){
+                        return{...acc, user_info:{...acc.user_info,[cur]:_post[cur]}}
+                    }
+                    return {...acc, [cur]:_post[cur]};
+                }, {id: doc.id, user_info:{}})
+
+                post_list.push(post)
+
+                // let _post ={
+                //     id: doc.id,
+                //     ...doc.data()
+                // };
+
+                // let post ={
+                //     id:doc.id,
+                //     user_info: {
+                //         user_name: _post.user_name,
+                //         user_profile: _post.user_profile,
+                //         user_id : _post.user_id
+                //       },
+                //       image_url:_post.image_url,
+                //       contents: _post.contents,
+                //       comment_cnt: _post.comment_cnt,
+                //       insert_dt: _post.insert_dt,
+                // }
+
+
+                // post_list.push(post)
             })
+            dispatch(setPost(post_list))
         })
     }
 }
@@ -43,7 +78,7 @@ const getPostFB =()=>{
 export default handleActions(
     {
         [SET_POST]:(state, action)=> produce(state,(draft)=>{
-
+            draft.list=action.payload.post_list;
         }),
 
         [ADD_POST]:(state, action)=> produce(state, (draft)=>{
