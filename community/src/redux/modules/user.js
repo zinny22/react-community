@@ -93,6 +93,23 @@ const signupFB = (id, pwd, user_name) => {
     }
   }
 
+const loginCheckFB =() =>{
+    return function(dispatch,getState,{history}){
+        auth.onAuthStateChanged((user)=>{
+            if(user){
+                dispatch(setUser({
+                    user_name : user.displayName,
+                    user_profile:'',
+                    id : user.email,
+                    uid : user.id,
+                }))
+            }else{
+                dispatch(logOut());
+            }
+        })
+    }
+}
+
 //reducer
 export default handleActions(
     {
@@ -118,7 +135,8 @@ const actionCreators ={
     logOut,
     getUser,
     signupFB,
-    loginFB
+    loginFB,
+    loginCheckFB
 };
 
 export{actionCreators};

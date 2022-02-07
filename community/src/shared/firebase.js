@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const apikey = firebaseConfig.apikey;
+const apiKey = firebaseConfig.apiKey;
 const auth = firebase.auth();
 
-export { auth, apikey};
+export { auth, apiKey};
