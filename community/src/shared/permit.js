@@ -14,9 +14,7 @@ const Permit = (props) =>{
                 {props.children}
             </React.Fragment>
         )
-    } else{
-        return null;
-    }
+    }return null;
 
 }
 
