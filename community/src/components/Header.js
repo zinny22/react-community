@@ -8,6 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import {history} from "../redux/configureStore"
 import { apiKey } from "../shared/firebase";
+import Permit from "../shared/permit";
 
 const Header = (props) => {
 
@@ -19,8 +20,7 @@ const Header = (props) => {
     const is_session = sessionStorage.getItem(_session_key)? true :false
     console.log(is_session);
 
-    if(is_login && is_session){
-        return (
+    <Permit>
             <React.Fragment>
                 <Grid is_flex padding="10px 16px">
                     <Grid>
@@ -30,14 +30,12 @@ const Header = (props) => {
                     <Grid is_flex>
                         <Button text="내정보"></Button>
                         <Button text="알림" margin="2px"></Button>
-                        <Button text="로그아웃" _onClick={()=>{dispatch(userActions.logOut({}))}}></Button>
+                        <Button text="로그아웃" _onClick={()=>{dispatch(userActions.logoutFB())}}></Button>
                     </Grid>
                 </Grid>
             </React.Fragment>
-    
-        )
-    }
-    
+    </Permit>
+
     return (
         <React.Fragment>
             <Grid is_flex padding="10px 16px">

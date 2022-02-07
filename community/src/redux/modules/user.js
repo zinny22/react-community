@@ -129,6 +129,15 @@ export default handleActions(
         initialState
 );
 
+const logoutFB =()=>{
+    return function(dispatch, getState,{history}){
+        auth.signOut().then(()=>{
+            dispatch(logOut());
+            history.replace('/');
+        })
+    }
+}
+
 //action creator export
 const actionCreators ={
     setUser,
@@ -136,7 +145,8 @@ const actionCreators ={
     getUser,
     signupFB,
     loginFB,
-    loginCheckFB
+    loginCheckFB,
+    logoutFB
 };
 
 export{actionCreators};
