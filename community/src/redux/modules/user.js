@@ -36,14 +36,14 @@ const loginFB = (id, pwd)=>{
         auth
         .signInWithEmailAndPassword(id, pwd)
         .then((user)=>{
-            console.log(user)
+            // console.log(user)
 
         
             dispatch(
                 setUser({
                 user_name:user.user.displayName, 
                 id : id, 
-                user_profile:'',
+                user_profile:"",
                 uid: user.user.uid,
             }));
             history.push('/')
@@ -67,7 +67,7 @@ const signupFB = (id, pwd, user_name) => {
         .createUserWithEmailAndPassword(id, pwd)
         //완료가 되면
         .then((user) => {
-            console.log(user)
+            // console.log(user)
             auth.currentUser.updateProfile({
                 displayName: user_name,
             }).then(()=>{
@@ -75,7 +75,7 @@ const signupFB = (id, pwd, user_name) => {
                     setUser({
                         user_name:user_name, 
                         id : id, 
-                        user_profile:'',
+                        user_profile:"",
                         uid: user.user.uid,
                     }))
                 history.push('/')
@@ -99,13 +99,23 @@ const loginCheckFB =() =>{
             if(user){
                 dispatch(setUser({
                     user_name : user.displayName,
-                    user_profile:'',
+                    user_profile:"",
                     id : user.email,
-                    uid : user.id,
+                    uid : user.uid,
                 }))
             }else{
                 dispatch(logOut());
             }
+        })
+    }
+}
+
+
+const logoutFB =()=>{
+    return function(dispatch, getState,{history}){
+        auth.signOut().then(()=>{
+            dispatch(logOut());
+            history.replace('/');
         })
     }
 }
@@ -128,15 +138,6 @@ export default handleActions(
     },
         initialState
 );
-
-const logoutFB =()=>{
-    return function(dispatch, getState,{history}){
-        auth.signOut().then(()=>{
-            dispatch(logOut());
-            history.replace('/');
-        })
-    }
-}
 
 //action creator export
 const actionCreators ={

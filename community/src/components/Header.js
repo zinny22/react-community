@@ -20,7 +20,7 @@ const Header = (props) => {
             <Permit>
                 <Grid is_flex padding="10px 16px">
                     <Grid>
-                        <Text margin="0px" size="15px" bold>🧡내사모🧡</Text>
+                        <Text margin="0px" size="15px" bold _onClick={()=>history.push('/')}>🧡내사모🧡</Text>
                     </Grid>
                     
                     <Grid is_flex>
@@ -37,7 +37,7 @@ const Header = (props) => {
         <React.Fragment>
             <Grid is_flex padding="10px 16px">
                 <Grid>
-                    <Text margin="0px" size="24px" bold>🧡내사모🧡</Text>
+                    <Text margin="0px" size="24px" bold _onClick={()=>history.push('/')}>🧡내사모🧡</Text>
                 </Grid>
                 
                 <Grid is_flex>

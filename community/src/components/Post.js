@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Image, Text} from "../elements";
+import {Button, Grid, Image, Text} from "../elements";
 
 
 const Post = (props) => {
@@ -12,9 +12,11 @@ const Post = (props) => {
               <Image shape="circle" src={props.src} />
               <Text bold>{props.user_info.user_name}</Text>
             </Grid>
-            
-            <Grid is_flex width="auto">
-              <Text>{props.insert_dt}</Text>
+
+            <Grid is_flex width="auto" >
+                <Text>{props.insert_dt}</Text>
+                <Button  width="90px" margin ="4px">수정</Button>
+                <Button width="90px">삭제</Button>
             </Grid>
           </Grid>
 
@@ -23,7 +25,7 @@ const Post = (props) => {
           </Grid>
 
           <Grid>
-            <Image shape="rectangle" src={props.src} />
+            <Image shape="rectangle" src={props.image_url} />
           </Grid>
 
           <Grid padding="16px">
