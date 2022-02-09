@@ -47,6 +47,7 @@ const loginFB = (id, pwd)=>{
                 uid: user.user.uid,
             }));
             history.push('/')
+            console.log(user)
         })
     
         .catch((error)=>{

@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button } from "../elements";
+import { Button, Grid } from "../elements";
 import { storage } from "./firebase";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import styled from "styled-components";
 
 const Upload =(props) =>{
     const dispatch = useDispatch();
@@ -50,10 +51,17 @@ const Upload =(props) =>{
 
     return (
         <React.Fragment>
-            <input type= "file" onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
-            <Button _onClick={uploadFB}>업로드하기</Button>
+            <Grid is_flex>
+                <input type= "file" onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
+                <Button _onClick={uploadFB} width ="90px">업로드하기</Button>
+            </Grid>
+            <Line/>
         </React.Fragment>
     )
 }
+
+const Line = styled.hr`
+    color : gray;
+`
 
 export default Upload;

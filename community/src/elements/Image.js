@@ -36,6 +36,7 @@ Image.defaultProps = {
   src: "https://cdn.clien.net/web/api/file/F01/12114079/1b1aaaf7cb9845.png?w=780&h=30000",
   size: 36,
   center: false,
+  
 };
 
 const AspectOutter = styled.div`
@@ -44,6 +45,7 @@ const AspectOutter = styled.div`
     --size: ${(props) => props.size}px;
     width: var(--size);
     /* height: var(--size); */
+    /* background-position: center; */
 `;
 
 const AspectInner = styled.div`
