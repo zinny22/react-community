@@ -6,11 +6,13 @@ import { actionCreators as imageActions } from "./image";
 
 const SET_POST = "SET_POST";
 const ADD_POST ="ADD_POST";
-const EDIT_POST = "EDIT_POST"
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST ="DELETE_POST"
 
 const setPost = createAction(SET_POST, (post_list)=>({post_list}));
 const addPost = createAction(ADD_POST, (post)=>({post}));
 const editPost = createAction(EDIT_POST, (post_id,post)=>({post_id, post}))
+const deletePost = createAction(DELETE_POST,(post_idx)=>({post_idx}));
 
 //이 리듀서가 사용할 
 const initialState ={
@@ -28,6 +30,22 @@ const initialPost ={
       contents: "",
       comment_cnt: 0,
       insert_dt : moment().format("YYYY-MM-DD hh:mm:ss"),
+}
+
+const deletePostFB = (post_id=null) =>{
+    return function(dispatch, getState,{history}){
+
+        const _post_idx = getState().post.list.findIndex((p)=>p.id===post_id)
+
+        const postDB = firestore.collection("post");
+           postDB.doc(post_id).delete().then(() => {
+            //액션생성함수에서도 post_id를 쓸수있게 dispatch로 값을 보내주는 작업을 해야한다. 
+            dispatch(deletePost(_post_idx));
+            console.log("successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
 }
 
 const editPostFB =(post_id=null, post={})=>{
@@ -172,8 +190,18 @@ export default handleActions(
         }),
         [EDIT_POST]:(state, action)=>produce(state, (draft)=>{
             let idx = draft.list.findIndex((p)=> p.id ===action.payload.post_id);
+            //{업데이트 전, 업데이트 후} 그래서업데이트 전꺼를 업데이트 후로 바꿔주는 작업을 하는데
+            //그리고 왼쪽에 덮어씌워준다 
             draft.list[idx] = {...draft.list[idx], ...action.payload.post}
-        })
+        }),
+        //원본의 draft복사본
+        [DELETE_POST]:(state, action) => produce(state, (draft)=>{
+            let deleted = draft.list.filter((e,i) => {
+                //(action.해서 가져오는 값)
+                return (parseInt(action.payload.post_idx) !== i)
+              })
+              draft.list = deleted;
+        }),
     }, initialState
 );
 
@@ -183,6 +211,8 @@ const actionCreators ={
     editPost,
     getPostFB,
     addPostFB,
-    editPostFB
+    editPostFB,
+    deletePost,
+    deletePostFB,
 }
 export {actionCreators}

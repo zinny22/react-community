@@ -7,6 +7,7 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) =>{
     const dispatch = useDispatch();
+    //useSelector는 리덕스에 담겨있는 스토어에서 값을 받아온다 
     const is_login = useSelector((state)=> state.user.is_login);
     const preview = useSelector((state)=> state.image.preview)
     const post_list = useSelector((state)=>state.post.list)

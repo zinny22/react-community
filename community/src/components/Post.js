@@ -1,10 +1,12 @@
 import React from "react";
 import {Button, Grid, Image, Text} from "../elements";
 import {history} from "../redux/configureStore"
+import { useDispatch} from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 
 const Post = (props) => {
-
+  const dispatch = useDispatch();
   console.log(props.value);
 
   if(props.value==="right"){
@@ -20,7 +22,7 @@ const Post = (props) => {
             <Grid is_flex width="auto" >
                 <Text>{props.insert_dt}</Text>
                 {props.is_me && <Button width="90px" margin ="4px" _onClick={()=>{ history.push(`/write/${props.id}`)}} >수정</Button>}
-                {props.is_me && <Button width="90px" _onClick={()=>{ history.push(`/delete`)}} >삭제</Button>}
+                {props.is_me && <Button width="90px" _onClick={()=>{dispatch(postActions.deletePostFB(props.id))}} >삭제</Button>}
             </Grid>
           </Grid>
           <Grid is_flex >
@@ -50,7 +52,7 @@ const Post = (props) => {
             <Grid is_flex width="auto" >
                 <Text>{props.insert_dt}</Text>
                 {props.is_me && <Button width="90px" margin ="4px" _onClick={()=>{ history.push(`/write/${props.id}`)}} >수정</Button>}
-                {props.is_me && <Button width="90px" _onClick={()=>{ history.push(`/delete`)}} >삭제</Button>}
+                {props.is_me && <Button width="90px" _onClick={()=>{dispatch(postActions.deletePostFB(props.id))}} >삭제</Button>}
             </Grid>
           </Grid> 
 
@@ -68,7 +70,7 @@ const Post = (props) => {
     );
   }
 
-  if(props.value==="middle"){
+  else{
     return (
       <React.Fragment>
         <Grid padding="16px">
@@ -81,7 +83,7 @@ const Post = (props) => {
             <Grid is_flex width="auto" >
                 <Text>{props.insert_dt}</Text>
                 {props.is_me && <Button width="90px" margin ="4px" _onClick={()=>{ history.push(`/write/${props.id}`)}}>수정</Button> }
-                {props.is_me && <Button width="90px" _onClick={()=>{ history.push(`/delete`)}} >삭제</Button>}
+                {props.is_me && <Button width="90px" _onClick={()=>{dispatch(postActions.deletePostFB(props.id))}} >삭제</Button>}
             </Grid>
           </Grid>
 
