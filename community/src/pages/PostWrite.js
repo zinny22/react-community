@@ -107,7 +107,7 @@ const PostWrite = (props) =>{
                 </Grid>
 
                 <Grid padding="16px">
-                    {is_edit?(<Button _onClick={editPost}>게시글 수정</Button>):(<Button _onClick={addPost}>게시글 작성</Button>)}
+                    {is_edit?(<Button _onClick={editPost} is_disabled={!preview || contents === "" ? true : false}>게시글 수정</Button>):(<Button _onClick={addPost} is_disabled={!preview || contents === "" ? true : false}>게시글 작성</Button>)}
                 </Grid>
             </Grid>
         </React.Fragment>

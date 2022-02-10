@@ -40,14 +40,14 @@ Input.defaultProps = {
 }
 
 const ElTextarea = styled.textarea`
-    border: 1px solid #b54e0f;
+    border: 1px solid #b7e4c7;
     width: 100%;
     padding: 12px 4px;
     box-sizing: border-box;
 `
 
 const ElInput = styled.input`
-    border: 1px solid #b54e0f;
+    border: 1px solid #b7e4c7;
     border-top: none;
     border-left: none;
     border-right: none;

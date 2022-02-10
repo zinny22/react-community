@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { emailCheck } from "../shared/common";
+import { emailCheck, pwdCheck } from "../shared/common";
 
 const Signup = (props) => {
 
@@ -23,6 +23,11 @@ const Signup = (props) => {
     if(!emailCheck(id)){
       window.alert('이메일 형식이 맞지 않습니다')
       return
+    }
+
+    if(!pwdCheck(pwd)){
+      window.alert('패스워드 형식이 맞지 않습니다')
+      return;
     }
 
     if(pwd!==pwd_check){
@@ -61,7 +66,7 @@ const Signup = (props) => {
         <Grid padding="16px 0px">
           <Input
             label="비밀번호"
-            placeholder="비밀번호를 입력해주세요."
+            placeholder="비밀번호를 입력해주세요. 8자리~16자리, 숫자 영문 특수문자 한개씩은 필수"
             type = "password"
             _onChange={(e) => {
               setPwd(e.target.value)
@@ -80,7 +85,7 @@ const Signup = (props) => {
           />
         </Grid>
 
-        <Button text="회원가입하기" _onClick={()=>{signup()}}></Button>
+        <Button text="회원가입하기" _onClick={()=>{signup()}} ></Button>
       </Grid>
     </React.Fragment>
   );

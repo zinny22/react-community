@@ -4,7 +4,7 @@ import { Text, Input, Grid, Button } from "../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { emailCheck } from "../shared/common";
+import { emailCheck, pwdCheck } from "../shared/common";
 
 const Login = (props) => {
 
@@ -16,7 +16,6 @@ const Login = (props) => {
   const login = () =>{
 
     if(id === ""|| pwd === ""){
-      window.alert("입력해주세요")
       return;
     }
 
@@ -57,13 +56,8 @@ const Login = (props) => {
           />
         </Grid>
 
-        <Button
-          text="로그인하기"
-          _onClick={() => {
-            console.log("로그인 했어!");
-            login()
-          }}
-        ></Button>
+        {/* disabled={!(checkId.test(inputId) && inputPw.length > 5)} */}
+        <Button text="로그인하기" _onClick={() => {login()}} is_disabled = {id===""|| pwd===""? true:false}></Button>
       </Grid>
     </React.Fragment>
   );

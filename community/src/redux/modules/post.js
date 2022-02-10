@@ -7,16 +7,19 @@ import { actionCreators as imageActions } from "./image";
 const SET_POST = "SET_POST";
 const ADD_POST ="ADD_POST";
 const EDIT_POST = "EDIT_POST";
-const DELETE_POST ="DELETE_POST"
+const DELETE_POST ="DELETE_POST";
+const LIKE_POST ="LIKE_POST";
 
 const setPost = createAction(SET_POST, (post_list)=>({post_list}));
 const addPost = createAction(ADD_POST, (post)=>({post}));
 const editPost = createAction(EDIT_POST, (post_id,post)=>({post_id, post}))
 const deletePost = createAction(DELETE_POST,(post_idx)=>({post_idx}));
+const likePost = createAction(LIKE_POST,(post_id)=>({post_id}));
 
 //이 리듀서가 사용할 
 const initialState ={
     list :[],
+
 } 
 
 //게시글 하나에 대한 기본 내용 
@@ -30,6 +33,27 @@ const initialPost ={
       contents: "",
       comment_cnt: 0,
       insert_dt : moment().format("YYYY-MM-DD hh:mm:ss"),
+      user_like:[],
+}
+
+const likePostFB = (post_id=null, user_like=[])=>{
+    return function(dispatch, getState,{history}){
+        const user_id =getState().user.user.uid;
+        const _post_idx = getState().post.list.findIndex(p=>p.id===post_id);
+        const _user_like = getState().post.list
+        console.log(_user_like)
+        const postDB = firestore.collection("post");
+
+        // postDB.get().then((docs)=>{
+        //     let post_list =[];    
+
+        //     docs.forEach((doc)=>{
+        //         let _post = doc.data()
+        //         console.log(_post)
+        //         })
+        //     })
+
+    }
 }
 
 const deletePostFB = (post_id=null) =>{
@@ -106,6 +130,7 @@ const addPostFB =(contents="", value ="")=>{
             contents:contents,
             insert_dt:moment().format("YYYY-MM-DD hh:mm:ss"),
             value:value,
+            user_like:[{[_user.uid]: false }],
         }
         console.log(_post)
 
@@ -214,5 +239,7 @@ const actionCreators ={
     editPostFB,
     deletePost,
     deletePostFB,
+    likePost,
+    likePostFB
 }
 export {actionCreators}
