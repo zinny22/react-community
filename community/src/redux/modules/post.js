@@ -14,6 +14,8 @@ const setPost = createAction(SET_POST, (post_list)=>({post_list}));
 const addPost = createAction(ADD_POST, (post)=>({post}));
 const editPost = createAction(EDIT_POST, (post_id,post)=>({post_id, post}))
 const deletePost = createAction(DELETE_POST,(post_idx)=>({post_idx}));
+//좋아요 기능을 넣으려고 했으나 너무 실패했어요,,ㅠㅠㅠㅠㅠㅠㅠㅠ흐규규규
+//백엔드랑 작업할때 저희가 해야될 부분이 어디가 될지 고민이 됩니다,,
 const likePost = createAction(LIKE_POST,(post_id)=>({post_id}));
 
 //이 리듀서가 사용할 
